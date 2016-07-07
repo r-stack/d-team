@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/serverComm.js"></script>
 		<title>教育ページ</title>
 		<style>
 
@@ -82,22 +83,20 @@
 
 				<div class="col-lg-4">
 					<div class="row content">
-						<form class="form-inline">
-							<div class="col-lg-10">
+						<div class="col-lg-10">
 							<fieldset class="form-group">
-								<input type="text" class="form-control" id="userMes" placeholder="会話をしよう">
+								<input id="queryMsg" style="width: 300px" type="text" class="form-control" id="userMes" placeholder="会話をしよう">
 							</fieldset>
-							</div>
-							<div class="col-lg-2">
-							<button type="submit" class="btn btn-primary">送る</button>
-							</div>
-						</form>
+						</div>
+						<div class="col-lg-2">
+							<button type="submit" class="btn btn-primary" onclick="sendMessage()">送る</button>
+						</div>
 					</div>
 					
 					<div class="row content">
     	    			<div class="panel panel-primary">
               				<div class="panel-heading">ハルが勉強をサポートします</div>
-              				<div class="panel-body"  style="background:url('http://subtlepatterns.com/patterns/geometry2.png');height: 600px; }">
+              				<div id="chatPanel" class="panel-body"  style="background:url('http://subtlepatterns.com/patterns/geometry2.png');height: 600px; }">
                 				<div class="clearfix"><blockquote class="me pull-right">わからないことがあったら聞きなさいよね。べっ別にあんたのためじゃないんだから！</blockquote></div>
                 				<div class="clearfix"><blockquote class="you pull-left">こんにちは</blockquote></div>
                 				<div class="clearfix"><blockquote class="me pull-right">ふん！</blockquote></div>
