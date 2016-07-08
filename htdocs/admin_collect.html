@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+<script src="js/serverComm.js"></script>
+
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/jquery.jqplot.min.js"></script>
 <script type="text/javascript" src="./js/jqplot.barRenderer.min.js"></script>
@@ -8,9 +14,22 @@
 <script type="text/javascript" src="./js/jqplot.pointLabels.min.js"></script>
 <link rel="stylesheet" type="text/css" hrf="./css/jquery.jqplot.min.css" />
 </head>
-<body>
-<div id="plot-title">全体 ページ選択画面</div>
+<body style="background-color: white !important;">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="nav-header">
+            <a class="navbar-brand" href="#" id="plot-title">全体 ページ選択画面</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+        </ul>
+    </div>
+</nav>
+
 <div id="jqplot-collect" style="width:600px; height:300px;"></div>
+
 
 <script class="code" type="text/javascript">
 var jqplot_obj
@@ -56,11 +75,11 @@ function getdata(data)
 	data_obj = JSON.parse(httpObj.responseText);
 	var graph_data = new Array();
 	graph_data[0] = new Array();
-	for(i=0; i<data_obj.questions.length; i++)
+	for(i=0; i<data_obj.question.length; i++)
 	{
 		graph_data[0][i] = new Array();
-		graph_data[0][i][0] = data_obj.questions[i].count;
-		graph_data[0][i][1] = data_obj.questions[i].keyword;
+		graph_data[0][i][0] = data_obj.question[i].count;
+		graph_data[0][i][1] = data_obj.question[i].keyword;
 	}
 		console.log("getdata");
 		var questions;
@@ -98,13 +117,34 @@ function getdata(data)
 		});
 }
 
+function EncodeHTMLForm( data )
+{
+    var params = [];
+
+    for( var name in data )
+    {
+        var value = data[ name ];
+        var param = encodeURIComponent( name ) + '=' + encodeURIComponent( value );
+
+        params.push( param );
+    }
+
+    return params.join( '&' ).replace( /%20/g, '+' );
+}
+
 function rewrite(page) {
 	console.log("test");
 	httpObj = new XMLHttpRequest();
 	httpObj.reponseType = "json";
+	var data = { slideId : page }; 
+//	var param = 'slideId='+page;
 //	httpObj.open('get','./test'+page+'.php',true);
-	httpObj.open('get','./app/db_select.php?slideId='+page,true);
-	httpObj.send();
+//	httpObj.open('get','./app/db_select.php?slideId='+page,true);
+//	httpObj.open('post','./app/db_select.php?slideId='+page,true);
+	httpObj.open('post','./app/db_select.php',true);
+	httpObj.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+//	httpObj.send();
+	httpObj.send(EncodeHTMLForm( data ));
 	httpObj.addEventListener("load",function(ev){
 		console.log(httpObj.responseText);
 		getdata(httpObj.responseText);
