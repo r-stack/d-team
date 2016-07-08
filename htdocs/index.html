@@ -89,17 +89,16 @@
 							</fieldset>
 						</div>
 						<div class="col-lg-2">
-							<button type="submit" class="btn btn-primary" onclick="sendMessage()">送る</button>
+							<button id="msgSend"type="submit" class="btn btn-primary" onclick="sendMessage()">送る</button>
 						</div>
 					</div>
 					
-					<div class="row content">
+					<div class="row content" controls>
+						<audio id="ai_voice">
+        				</audio>
     	    			<div class="panel panel-primary">
               				<div class="panel-heading">ハルが勉強をサポートします</div>
               				<div id="chatPanel" class="panel-body"  style="background:url('http://subtlepatterns.com/patterns/geometry2.png');height: 600px; }">
-                				<div class="clearfix"><blockquote class="me pull-right">わからないことがあったら聞きなさいよね。べっ別にあんたのためじゃないんだから！</blockquote></div>
-                				<div class="clearfix"><blockquote class="you pull-left">こんにちは</blockquote></div>
-                				<div class="clearfix"><blockquote class="me pull-right">ふん！</blockquote></div>
               				</div>
             			</div>
             		</div>
