@@ -31,7 +31,7 @@ function sendMessage(){
 	chatPanel.appendChild(qryMsgFrame);
 	
 	var query = {
-		"user_id": user_id,
+		"user_id: user_id,
  		"comment": queryMsg,
  		"page": slideNum.toString(),
 		"token": token,
@@ -41,9 +41,9 @@ function sendMessage(){
 	$.ajax({
 		type: "POST",
 		url: "app/comment.php",
-		data: query,
-		dataType: "json" 
-	
+		data: JSON.stringify(query),
+		dataType: "json", 
+		contentType: "application/json"
 	
 	}).done(function(data, textStatus, jqXHR){
   		/*creating response message*/
