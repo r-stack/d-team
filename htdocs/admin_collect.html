@@ -9,14 +9,14 @@
 <link rel="stylesheet" type="text/css" hrf="./css/jquery.jqplot.min.css" />
 </head>
 <body>
-<div id="plot-title">‘S‘Ì ƒy[ƒW‘I‘ğ‰æ–Ê</div>
+<div id="plot-title">å…¨ä½“ ãƒšãƒ¼ã‚¸é¸æŠç”»é¢</div>
 <div id="jqplot-collect" style="width:600px; height:300px;"></div>
 
 <script class="code" type="text/javascript">
 var jqplot_obj
 $(document).ready(function(){
 	jqplot_obj = $.jqplot('jqplot-collect', [
-        [[0,"‚È‚µ"]]], {
+        [[0,"ãªã—"]]], {
         seriesDefaults: {
             renderer:$.jqplot.BarRenderer,
             // Show point labels to the right ('e'ast) of each bar.
@@ -108,7 +108,7 @@ function rewrite(page) {
 	httpObj.addEventListener("load",function(ev){
 		console.log(httpObj.responseText);
 		getdata(httpObj.responseText);
-		document.getElementById("plot-title").innerHTML = "‘S‘Ì ƒy[ƒW"+page;
+		document.getElementById("plot-title").innerHTML = "å…¨ä½“ ãƒšãƒ¼ã‚¸"+page;
 	});
 }
 </script>
