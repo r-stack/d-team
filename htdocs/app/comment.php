@@ -6,7 +6,6 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 // リクエストの取得
 $json_string = file_get_contents('php://input');
 $req_body = json_decode($json_string, true);
-
 $comment = $req_body['comment'];
 $page = $req_body['page'];
 $token = $req_body['token'];
@@ -37,20 +36,23 @@ else if($meaning['sence_id'] <= 48){
 
 // 問い合わせ系(52,53)として意味抽出されたもの以外はそのままのコメントを対話APIに食わせてみる
 $response = call_repl_api($user_id, $token, $comment);
-//var_dump($meaning); //■■■■デバッグ用■■■■
+//var_dump($response); //■■■■デバッグ用■■■■
 $keywords = implode_keyword($meaning['keywords']);
 
 // シナリオで定義してあるものに引っかかればそれで対応されるし、なければ雑談に流す。
 $return_token = null;
-if(strpos($response, '★') === false){  // 答えるパターン
+$debug_pattern = null;
+if(preg_match('/★(.+)★/', $response, $matches)){  // 答えるパターン
     $comment_type = 1; // 答えるパターンになる場合は質問としてDBに登録する。
-    $response = str_replace('★', '', $response);
-    $response = $response.call_qna_api($keywords);
+    $response = str_replace('★'.$matches[1].'★', '', $response);
+    $response = $response.call_qna_api($matches[1]);
+    $debug_pattern = '応える';
     //insert_comment_info($page, $comment_type, $keywords);
 }
 else if(strpos($response, '■') !== false){  // 再度問い直しループ
     $response = str_replace('■', '', $response);
     $return_token = date('Y-m-d H:i:s');
+    $debug_pattern = 'ループ';
 }
 else{  // パターン以外は雑談で返す
     $response = call_free_talk_api($comment);
@@ -58,10 +60,12 @@ else{  // パターン以外は雑談で返す
     if($comment_type != null){
         //insert_comment_info($page, $comment_type, $keywords);
     }
+    $debug_pattern = '雑談';
 }
 
 // レスポンス文章を音声合成
 $return_voice_url = call_voice_out_api($response, $speaker_id);
+
 
 // レスポンス作成
 header('Content-Type: application/json;charset=UTF-8');
@@ -71,7 +75,8 @@ $json = json_encode(
         'user_id' => $user_id,
         'token' => $return_token,
         'response' => $response,
-        'voice' => $return_voice_url
+        'voice' => $return_voice_url,
+        'debug' => $debug_pattern
     ), JSON_UNESCAPED_UNICODE);
 echo $json;
 
