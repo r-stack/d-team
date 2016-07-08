@@ -16,7 +16,7 @@ function sendMessage(){
 	document.getElementById("msgSend").disabled = true;
 	
 	var slideNum = document.getElementsByClassName("item active")[0].getElementsByTagName("img")[0].getAttribute("src");
-	var query = document.getElementById("queryMsg").value;
+	var queryMsg = document.getElementById("queryMsg").value;
 	var chatPanel = document.getElementById("chatPanel");
 	
 	/*creating query message for showing on chat pannel*/
@@ -24,7 +24,7 @@ function sendMessage(){
 	var qryMsg = document.createElement("blockquote");
 	qryMsgFrame.setAttribute("class", "clearfix"); 
 	qryMsg.setAttribute("class", "you pull-left");
-	qryMsg.innerHTML = query;
+	qryMsg.innerHTML = queryMsg;
 	
 	/*set query on panel*/
 	qryMsgFrame.appendChild(qryMsg);
@@ -32,7 +32,7 @@ function sendMessage(){
 	
 	var query = {
 		"user_id": user_id,
- 		"comment": query,
+ 		"comment": queryMsg,
  		"page": slideNum.toString(),
 		"token": token,
  		"speaker_id": "1"
