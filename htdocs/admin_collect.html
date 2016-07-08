@@ -35,7 +35,7 @@
 var jqplot_obj
 $(document).ready(function(){
 	jqplot_obj = $.jqplot('jqplot-collect', [
-        [[0,"なし"]]], {
+        [[0,"なし"],[0,"よい評価"],[0,"悪い評価"]]], {
         seriesDefaults: {
             renderer:$.jqplot.BarRenderer,
             // Show point labels to the right ('e'ast) of each bar.
@@ -81,6 +81,14 @@ function getdata(data)
 		graph_data[0][i][0] = data_obj.question[i].count;
 		graph_data[0][i][1] = data_obj.question[i].keyword;
 	}
+	graph_data[0][i] = new Array();
+	graph_data[0][i][0] = data_obj.satisfaction.ok;
+	graph_data[0][i][1] = "良い評価";
+	i++;
+	graph_data[0][i] = new Array();
+	graph_data[0][i][0] = data_obj.satisfaction.ng;
+	graph_data[0][i][1] = "悪い評価";
+
 		console.log("getdata");
 		var questions;
 		jqplot_obj.destroy();
