@@ -11,12 +11,13 @@ function play_voice (filename){
 }
 
 function sendMessage(){
-
+	
 	/*disable button for disable consecutive querying*/
 	document.getElementById("msgSend").disabled = true;
 	
 	var slideNum = document.getElementsByClassName("item active")[0].getElementsByTagName("img")[0].getAttribute("src");
 	var queryMsg = document.getElementById("queryMsg").value;
+	document.getElementById("queryMsg").value = "";
 	var chatPanel = document.getElementById("chatPanel");
 	
 	/*creating query message for showing on chat pannel*/
@@ -31,7 +32,7 @@ function sendMessage(){
 	chatPanel.appendChild(qryMsgFrame);
 	
 	var query = {
-		"user_id: user_id,
+		"user_id": user_id,
  		"comment": queryMsg,
  		"page": slideNum.toString(),
 		"token": token,
