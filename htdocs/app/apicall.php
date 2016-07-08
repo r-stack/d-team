@@ -43,7 +43,6 @@ function call_voice_out_api($text, $speaker_id){
         'TextData' => $text
     );
     $result = post_json_to_file_api('https://api.apigw.smt.docomo.ne.jp/crayonCorp/v1/textToSpeech?APIKEY='. $API_KEY, json_encode($payload), 'aac');
-    
     return $result;
 }
 
@@ -59,14 +58,14 @@ function call_repl_get_user_id(){
 }
 
 function call_repl_api($user_id, $appRecvTime, $text){
-    $API_KEY = '9ObKMycnBh9pVqVh1AdNj97pXGkN8cMr4jnAAwCJ';
+    $API_KEY = 'GV3EPRNxCP2uwOu8HxLwZFGzaIvpWJL30ps5FaYa';
     $is_initial = $appRecvTime == null? true: false;
     $payload = array(
         'appUserId' => $user_id,
         'botId' => 'test',
         'voiceText' => $text,
         'initTalkingFlag' => $is_initial,
-        'initTopicId' => 'test',
+        'initTopicId' => 'bot1',
         'appRecvTime' => $appRecvTime,
         'appSendTime' => date('Y-m-d H:i:s')
     );
@@ -151,6 +150,7 @@ function post_json_to_file_api($url, $json_string, $file_extension){
     curl_exec($ch);
     curl_close($ch);
     fclose($fp);
+
     return $file_name;
 }
 
