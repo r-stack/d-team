@@ -32,7 +32,7 @@ function sendMessage(){
 	
 	var query = {
 		"user_id": user_id,
- 		"comment": "comment.php",
+ 		"comment": query,
  		"page": slideNum.toString(),
 		"token": token,
  		"speaker_id": "1"
@@ -46,8 +46,6 @@ function sendMessage(){
 	
 	
 	}).done(function(data, textStatus, jqXHR){
-		play_voice("test");
-		alert("at least got something");
   		/*creating response message*/
 		var rspMsgFrame = document.createElement("div");
 		var rspMsg = document.createElement("blockquote");
@@ -67,7 +65,7 @@ function sendMessage(){
 		
 		/*play audio*/
 		var audio_path = "cache/" + data["voice"];
-		play_voice();
+		play_voice(audio_path);
 	
 	}).fail(function (data, textStatus, jqXHR){
 		alert(data.status);
